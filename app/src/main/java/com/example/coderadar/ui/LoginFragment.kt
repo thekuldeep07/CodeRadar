@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
@@ -101,6 +102,8 @@ class LoginFragment : Fragment() {
                     try {
                         val account = task.getResult(ApiException::class.java)
                         signInWithGoogle(account.idToken!!)
+                        Toast.makeText(activity?.applicationContext, "yeeeeydf", Toast.LENGTH_LONG)
+                            .show()
                     } catch (e: ApiException) {
                         Log.e("Api Exception", "${e}")
                     }

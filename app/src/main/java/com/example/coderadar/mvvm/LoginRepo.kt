@@ -52,6 +52,10 @@ class LoginRepo(val application: Application) {
                     } }
                 }
             }
+            .addOnFailureListener {
+                Toast.makeText(application, "Something Went Wrong", Toast.LENGTH_LONG)
+                    .show()
+            }
     }
 
 

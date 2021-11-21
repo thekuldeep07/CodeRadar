@@ -1,0 +1,58 @@
+package com.example.coderadar.mvvm
+
+import android.app.Application
+import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.coderadar.mvvm.LoginRepo
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+
+class LoginViewModel(application: Application): AndroidViewModel(application) {
+    val repository : LoginRepo
+    var firebaseUserData : MutableLiveData<FirebaseUser?>
+    val userStatus : MutableLiveData<Boolean>
+    val isAuthenticated : MutableLiveData<Boolean>
+    init {
+        repository = LoginRepo(application)
+        firebaseUserData = repository.firebaseUserData
+        userStatus = repository.userStatus
+        isAuthenticated = repository.isAuthenticated
+    }
+
+    fun signUp(name: String, email:String, pass:String) = viewModelScope.launch {
+        repository.createUser(name, email, pass)
+    }
+
+    fun signIn(email:String, pass:String) = viewModelScope.launch {
+        repository.signIn(email, pass)
+    }
+
+    fun loginWithGoogleAccount(idToken: String) {
+        repository.signInWithGoogle(idToken)
+    }
+
+    fun signOut() = viewModelScope.launch {
+        repository.signOut()
+    }
+
+    fun addingDataToFirebase(name:String, email:String) {
+        repository.addingDataToFirestore(name, email)
+    }
+
+    fun isAuthenticated() {
+        repository.isAuthenticated()
+    }
+
+    fun showDetails() {
+        repository.showDetails()
+    }
+
+    fun removefirebaseUserData() {
+        firebaseUserData.postValue(null)
+    }
+}
+

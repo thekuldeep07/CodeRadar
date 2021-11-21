@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "911082203780",
+    "project_id": "coderadar-e9901",
+    "storage_bucket": "coderadar-e9901.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911082203780:android:75ee8b4087a8d5c50cf0d1",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911082203780-7g88ttre72hmo42ob6klotamm9e9f46g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "668e148dc09743ef53548bdcfcde26a2efec0794"
+          }
+        },
+        {
+          "client_id": "911082203780-pecbd0iugs7876fg1kipa1nnrteos912.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "1273c06e900d47619626ef30bec235bc96f23d49"
+          }
+        },
+        {
+          "client_id": "911082203780-11mcu4t8i6v85r6vdfa8h4shvgci8tcb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgE4x8yKfF762PrZHpZpiLA18ZkOC9nOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911082203780-11mcu4t8i6v85r6vdfa8h4shvgci8tcb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

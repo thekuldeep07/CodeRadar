@@ -1,0 +1,38 @@
+{
+  meta: {
+    estimated_count: 1,
+    limit: 100,
+    next: "/api/v2/contest/?format=json&start__gt=2021-11-07T00%3A00%3A00&start__gt=2021-11-07T00%3A00%3A00&start__lt=2021-11-07T23%3A59%3A59&start__lt=2021-11-07T23%3A59%3A59&order_by=-start&order_by=-start&limit=100&offset=100",
+    offset: 0,
+    previous: null,
+    total_count: null
+  },
+  objects: [
+    {
+      duration: 1209540,
+      end: "2021-11-21T18:29:00",
+      event: "I3 – Innovate – Ideate – Implement. Prototype Submission Phase. Online",
+      host: "hackerearth.com",
+      href: "https://www.hackerearth.com/challenges/hackathon/i3-innovate-ideate-implement/",
+      id: 30135425,
+      parsed_at: null,
+      problems: null,
+      resource: "hackerearth.com",
+      resource_id: 73,
+      start: "2021-11-07T18:30:00"
+    },
+    {
+      duration: 18000,
+      end: "2021-11-07T11:00:00",
+      event: "Программирование - профессионалы (ком. 2021)",
+      host: "dl.gsu.by",
+      href: "http://dl.gsu.by/LC.jsp?Type=-1&lng=ru",
+      id: 30197590,
+      parsed_at: null,
+      problems: null,
+      resource: "dl.gsu.by",
+      resource_id: 4,
+      start: "2021-11-07T06:00:00"
+    }
+  ]
+}

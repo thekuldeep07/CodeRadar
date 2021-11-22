@@ -102,8 +102,6 @@ class LoginFragment : Fragment() {
                     try {
                         val account = task.getResult(ApiException::class.java)
                         signInWithGoogle(account.idToken!!)
-                        Toast.makeText(activity?.applicationContext, "yeeeeydf", Toast.LENGTH_LONG)
-                            .show()
                     } catch (e: ApiException) {
                         Log.e("Api Exception", "${e}")
                     }

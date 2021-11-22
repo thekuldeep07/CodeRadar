@@ -14,6 +14,7 @@ interface ClistAPIService {
         @Query("username") username:String = BuildConfig.USERNAME,
         @Query("api_key") api_key:String = BuildConfig.API_KEY,
         @Query("start__gt") start_dt: LocalDateTime,
+        @Query("end__gt")end_dt:LocalDateTime,
         @Query("order_by") order_by:String = "start",
 
         ): Response<APIResponse>

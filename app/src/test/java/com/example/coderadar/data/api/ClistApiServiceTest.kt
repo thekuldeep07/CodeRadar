@@ -45,7 +45,7 @@ class ClistApiServiceTest {
     fun getContestPresent_sentRequest_recievedExpected(){
         runBlocking {
             enqueueMockResponse("contestsResponses.json")
-            val localDateTime = LocalDateTime.parse("2021-11-07T00:00:59")
+            val localDateTime = LocalDateTime.parse("2021-11-22T00:00:59")
 
 //            Log.d("date",""+localDateTime)
 //            val localDateTime1:LocalDateTime="2019-08-07T00:00"
@@ -55,7 +55,7 @@ class ClistApiServiceTest {
             ).body()
             val request=server.takeRequest()
             assertThat(responseBody).isNotNull()
-            assertThat(request.path).isEqualTo("/api/v2/json/contest/?username=thekuldeep07&api_key=f9be2617619f7d5e2378cde16be75208ad81d36a&start__gt=2021-11-07T00%3A00%3A59&start__lt=2021-11-07T23%3A59%3A59&order_by=-start")
+            assertThat(request.path).isEqualTo("/api/v2/json/contest/?username=thekuldeep07&api_key=f9be2617619f7d5e2378cde16be75208ad81d36a&start__gt=2021-11-22T00%3A00%3A59&order_by=start")
 
         }
 

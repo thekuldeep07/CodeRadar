@@ -13,6 +13,7 @@ import com.example.coderadar.presentation.adapter.ContestAdapter
 import com.example.coderadar.presentation.viewmodel.ContestsViewModel
 import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.FragmentContestBinding
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 
@@ -38,9 +39,10 @@ class ContestFragment : Fragment() {
     }
 
     private fun viewNewsList() {
-        val currentDateTime = LocalDateTime.now().plusSeconds(59)
-        Log.d("date",""+currentDateTime)
-        viewmodel.getContest(currentDateTime)
+        val currentDateTimeMin = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0)
+        val currentDateTime = LocalDateTime.now()
+        Log.d("date",""+currentDateTimeMin)
+        viewmodel.getContest(currentDateTimeMin,currentDateTime)
         viewmodel.contestDetails.observe(viewLifecycleOwner,{response->
             when(response){
                 is Resource.Success->{

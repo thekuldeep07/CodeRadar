@@ -12,8 +12,9 @@ class PresentContestRemoteDataSourceImpl(
     ): ContestRemoteDataSource {
     override suspend fun getPresentContest(
         start_dt: LocalDateTime,
+        end_dt:LocalDateTime
     ): Response<APIResponse> {
-        return clistAPIService.getContestPresent(start_dt = start_dt)
+        return clistAPIService.getContestPresent(start_dt = start_dt,end_dt = end_dt)
 
     }
 }

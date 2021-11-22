@@ -13,9 +13,10 @@ class ContestRepositoryImpl(
         private  val remoteDataSource: ContestRemoteDataSource
 ): ContestRepository {
     override suspend fun getContests(
-        start_dt: LocalDateTime
+        start_dt: LocalDateTime,
+        end_dt:LocalDateTime
     ): Resource<APIResponse> {
-        return responseToResource(remoteDataSource.getPresentContest(start_dt))
+        return responseToResource(remoteDataSource.getPresentContest(start_dt,end_dt))
     }
 
 

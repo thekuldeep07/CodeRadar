@@ -68,9 +68,17 @@ class ContestAdapter: RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
                 binding.endTime.text = endTime.toString()
 
                 val currentDate = LocalDateTime.now()
-                if (currentDate >= startDate){
-                    binding.statusTv.text = "Live"
-                    binding.statusTv.setTextColor(Color.GREEN)
+                if (startDate.isAfter(currentDate)){
+                    binding.statusTv.text = "Upcoming"
+                    binding.statusTv.setTextColor(Color.RED)
+                }
+                else{
+                    if (currentDate.isBefore(endDate)){
+                        binding.statusTv.text = "Live"
+                        binding.statusTv.setTextColor(Color.GREEN)
+                    }
+
+
                 }
             }
     }

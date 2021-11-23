@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
 
-        applicationId "com.example.coderadar"
+        applicationId "com.example.myapplication"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1

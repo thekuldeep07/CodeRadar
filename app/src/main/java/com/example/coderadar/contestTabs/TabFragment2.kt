@@ -40,9 +40,10 @@ class TabFragment2 : Fragment() {
     }
 
     private fun viewNewsList() {
-        val currentDateTime = LocalDateTime.now().plusSeconds(59)
+        val currentDateTimeMin = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0)
+        val currentDateTime = LocalDateTime.now()
         Log.d("date",""+currentDateTime)
-        viewmodel.getContest(currentDateTime)
+        viewmodel.getContest(currentDateTimeMin,currentDateTime)
         viewmodel.contestDetails.observe(viewLifecycleOwner,{response->
             when(response){
                 is Resource.Success->{

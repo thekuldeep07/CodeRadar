@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 
 interface ContestRepository {
 
-    suspend fun getContests(start_dt:LocalDateTime): Resource<APIResponse>
+    suspend fun getContests(start_dt:LocalDateTime,end_dt:LocalDateTime): Resource<APIResponse>
 
     suspend fun  getSearchedContest(searchQuery:String): Resource<APIResponse>
 

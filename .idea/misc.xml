@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Collage Project/CodeRadar/app/src/main/res/drawable-ldpi/ic_baseline_link_24.xml" value="0.2388888888888889" />
         <entry key="..\:/Collage Project/CodeRadar/app/src/main/res/layout/activity_contest.xml" value="0.22864583333333333" />
         <entry key="..\:/Collage Project/CodeRadar/app/src/main/res/layout/activity_main.xml" value="0.22864583333333333" />
+        <entry key="..\:/Collage Project/CodeRadar/app/src/main/res/layout/contest_list_item.xml" value="0.22864583333333333" />
         <entry key="..\:/Collage Project/CodeRadar/app/src/main/res/layout/fragment_contest.xml" value="0.22864583333333333" />
         <entry key="..\:/Collage Project/CodeRadar/app/src/main/res/layout/fragment_tab1.xml" value="0.22864583333333333" />
         <entry key="..\:/Collage Project/CodeRadar/app/src/main/res/layout/fragment_tab2.xml" value="0.21145833333333333" />

@@ -1,5 +1,6 @@
 package com.example.coderadar.presentation.adapter
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coderadar.data.model.Contest
 import com.example.CodeRadar.databinding.ContestListItemBinding
+import java.time.LocalDateTime
 
 class ContestAdapter: RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
 
@@ -46,13 +48,36 @@ class ContestAdapter: RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
 
     inner class  contestViewHolder(val binding : ContestListItemBinding)
         :RecyclerView.ViewHolder(binding.root){
-            fun bind(contest: Contest){
-                Log.d("mytag2",""+contest.href)
-                binding.detatilTv.text=contest.event
-                binding.siteName.text=contest.host
+        fun bind(contest: Contest){
+            binding.eventTitle.text=contest.event
+
+
+            val startDate = LocalDateTime.parse(contest.start)
+            val endDate = LocalDateTime.parse(contest.end)
+            val startTime = (startDate.hour.toString() + ":" + startDate.minute.toString())
+            val endTime = (endDate.hour.toString() + ":" + endDate.minute.toString())
+            binding.startDate.text=(startDate.dayOfMonth.toString() +
+                    "-"+startDate.month.toString()+"-"+startDate.year.toString())
+            binding.endDate.text=(endDate.dayOfMonth.toString() +
+                    "-"+endDate.month.toString()+"-"+endDate.year.toString())
+
+            binding.startTime.text = startTime.toString()
+            binding.endTime.text = endTime.toString()
+
+            val currentDate = LocalDateTime.now()
+            if (startDate.isAfter(currentDate)){
+                binding.statusTv.text = "Upcoming"
+                binding.statusTv.setTextColor(Color.RED)
+            }
+            else{
+                if (currentDate.isBefore(endDate)){
+                    binding.statusTv.text = "Live"
+                    binding.statusTv.setTextColor(Color.GREEN)
+                }
 
 
             }
+        }
 
     }
 

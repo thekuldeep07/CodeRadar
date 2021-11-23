@@ -13,7 +13,7 @@ class LoginRepo(val application: Application) {
     private val mAuth = FirebaseAuth.getInstance()
     val firebaseUserData = MutableLiveData<FirebaseUser?>()
     val isAuthenticated = MutableLiveData<Boolean>()
-    val userStatus = MutableLiveData<Boolean>()
+    val userLogoutStatus = MutableLiveData<Boolean>()
 
     fun isAuthenticated(){
         val user = mAuth.currentUser
@@ -65,7 +65,7 @@ class LoginRepo(val application: Application) {
             .addOnCompleteListener {
                 if (it.isSuccessful){
                     firebaseUserData.postValue(mAuth.currentUser)
-                    userStatus.postValue(true)
+                    userLogoutStatus.postValue(false)
                 }
             }
     }
@@ -73,7 +73,7 @@ class LoginRepo(val application: Application) {
     // Sign Out
     fun signOut(){
         mAuth.signOut()
-        userStatus.postValue(true)
+        userLogoutStatus.postValue(true)
     }
 
     // Sending Email for varification
@@ -90,7 +90,7 @@ class LoginRepo(val application: Application) {
         db.collection("Users")
             .add(data)
             .addOnSuccessListener {
-                userStatus.postValue(false)
+                userLogoutStatus.postValue(false)
             }
     }
 

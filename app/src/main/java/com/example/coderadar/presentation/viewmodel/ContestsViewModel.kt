@@ -23,12 +23,12 @@ class ContestsViewModel  @Inject constructor(
 ):AndroidViewModel(app){
     val contestDetails:MutableLiveData<Resource<APIResponse>> = MutableLiveData()
 
-    fun getContest(start_dt:LocalDateTime)=viewModelScope.launch(Dispatchers.IO) {
+    fun getContest(start_dt:LocalDateTime,end_dt:LocalDateTime)=viewModelScope.launch(Dispatchers.IO) {
         contestDetails.postValue(Resource.Loading())
         try {
             if(isInternetAvailable(app)){
 
-                val apiResult = getContestUseCase.execute(start_dt)
+                val apiResult = getContestUseCase.execute(start_dt,end_dt)
                 contestDetails.postValue(apiResult)
             }
             else{

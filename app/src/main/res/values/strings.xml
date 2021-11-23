@@ -23,8 +23,7 @@
     <string name="email_verification_text">We have sent a verification email to your register email id. Please verify your email and then login.</string>
     <string name="hello_contest_fragment">Hello Contest fragment</string>
     <string name="firstonboardtext">DONT MISS THOSE CONTESTS ANYMORE !</string>
-    <string name="secondonboardtext">COMPETITIVE CODING CALANDER</string>
-    <string name="secondonboardtext2">KNOW ABOUT UPCOMING CONTESTS</string>
+    <string name="secondonboardtext2">COMPETITIVE CODING CALANDER ,KNOW ABOUT UPCOMING CONTESTS</string>
     <string name="thirdonboardtext">SET A REMINDER TO NEVER MISS A CONTEST AGAIN</string>
     <string name="hello_saved_fragment">Hello saved fragment</string>
     <string name="hello_info_fragment">Hello info fragment</string>

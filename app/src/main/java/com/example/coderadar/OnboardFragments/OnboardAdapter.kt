@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coderadar.MainActivity
 import com.example.CodeRadar.R
@@ -21,7 +22,6 @@ class OnboardAdapter(private val NUM_PAGES: Int, private val con: Activity): Rec
         val onboardPaging = view.findViewById<ImageView>(R.id.onboardpaging)
         val firstonboardshowwelcomelogo = view.findViewById<LinearLayout>(R.id.firstonboardshowwelcomelogo)
         val firstonboardtext = view.resources.getString(R.string.firstonboardtext)
-        val secondonboardtext = view.resources.getString(R.string.secondonboardtext)
         val thirdonboardtext = view.resources.getString(R.string.thirdonboardtext)
         val button = view.findViewById<Button>(R.id.onBoardButton)
     }
@@ -34,14 +34,24 @@ class OnboardAdapter(private val NUM_PAGES: Int, private val con: Activity): Rec
     override fun onBindViewHolder(holder: myHolder, position: Int) {
         if (position == 0) {
             holder.onboardText.text = holder.firstonboardtext
+            holder.button.text = "SKIP"
+            holder.button.setOnClickListener {
+                con.startActivity(Intent(con, MainActivity::class.java))
+                con.finish()
+            }
         } else if (position == 1) {
-            holder.firstonboardshowwelcomelogo.visibility = View.GONE
-            holder.onboardText.text = holder.secondonboardtext
+            holder.firstonboardshowwelcomelogo.visibility = View.VISIBLE
+            holder.onboardText.visibility = View.GONE
             holder.onboardPaging.setImageResource(R.drawable.secondposition)
             holder.onboardImage.setImageResource(R.drawable.secondonboard)
             holder.secondOnboardText.visibility = View.VISIBLE
+            holder.button.text = "SKIP"
+            holder.button.setOnClickListener {
+                con.startActivity(Intent(con, MainActivity::class.java))
+                con.finish()
+            }
         } else if (position == 2) {
-            holder.firstonboardshowwelcomelogo.visibility = View.GONE
+            holder.firstonboardshowwelcomelogo.visibility = View.VISIBLE
             holder.onboardText.text = holder.thirdonboardtext
             holder.onboardPaging.setImageResource(R.drawable.thirdposition)
             holder.onboardImage.setImageResource(R.drawable.thirdonboard)

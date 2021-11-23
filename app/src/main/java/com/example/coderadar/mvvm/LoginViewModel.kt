@@ -19,7 +19,7 @@ class LoginViewModel(application: Application): AndroidViewModel(application) {
     init {
         repository = LoginRepo(application)
         firebaseUserData = repository.firebaseUserData
-        userStatus = repository.userStatus
+        userStatus = repository.userLogoutStatus
         isAuthenticated = repository.isAuthenticated
     }
 

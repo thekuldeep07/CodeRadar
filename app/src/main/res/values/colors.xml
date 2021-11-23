@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="edittextcolor">#CCD5CB</color>
     <color name="buttonbackcolor">#5FAB56</color>
-    <color name="liveColor">#30B820</color>
+    <color name="buttonbackcolordark">#558F4E</color>
     <color name="registerlogincolor">#0045FF</color>
     <color name="hintcolor">#545D55</color>
     <color name="light_blue_600">#FF039BE5</color>

@@ -15,6 +15,7 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
         <activity
+            android:theme="@style/customTheme"
             android:name="com.example.coderadar.ui.ContestActivity"
             android:exported="false" />
         <activity

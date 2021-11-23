@@ -24,7 +24,7 @@ class ContestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityContestBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.statusBarColor = resources.getColor(R.color.white)
+        window.statusBarColor = resources.getColor(R.color.buttonbackcolordark)
         val navHostFragment = supportFragmentManager.findFragmentById(
             R.id.fragment) as NavHostFragment
         val navController = navHostFragment.navController

@@ -44,7 +44,8 @@ class TabFragment5 : Fragment() {
         val currentDateTimeMin = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0)
         val currentDateTime = LocalDateTime.now()
         Log.d("date",""+currentDateTime)
-        viewmodel.getContest(currentDateTimeMin,currentDateTime)
+        val resource = "codeforces.com"
+        viewmodel.getContest(resource,currentDateTimeMin,currentDateTime)
         viewmodel.contestDetails.observe(viewLifecycleOwner,{response->
             when(response){
                 is Resource.Success->{

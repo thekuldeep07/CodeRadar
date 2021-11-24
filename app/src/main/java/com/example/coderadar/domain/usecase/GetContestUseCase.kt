@@ -6,7 +6,7 @@ import com.example.coderadar.domain.repository.ContestRepository
 import java.time.LocalDateTime
 
 class GetContestUseCase(private  val  contestRepository: ContestRepository) {
-    suspend fun execute(start_dt:LocalDateTime,end_dt:LocalDateTime): Resource<APIResponse> {
-        return contestRepository.getContests(start_dt,end_dt)
+    suspend fun execute(resource:String,start_dt:LocalDateTime,end_dt:LocalDateTime): Resource<APIResponse> {
+        return contestRepository.getContests(resource,start_dt,end_dt)
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.FragmentTab1Binding
@@ -40,35 +41,24 @@ class TabFragment1 : Fragment() {
     }
 
     private fun viewNewsList() {
+        showProgressbar()
         val currentDateTimeMin = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0)
         val currentDateTime = LocalDateTime.now()
         Log.d("date",""+currentDateTime)
         val resource = "codechef.com"
-        viewmodel.getContest(resource,currentDateTimeMin,currentDateTime)
-        viewmodel.contestDetails.observe(viewLifecycleOwner,{response->
-            when(response){
-                is Resource.Success->{
-                    hideProgressbar()
-                    response.data?.let {
-                        contestAdapter.differ.submitList(it.contests)
-                        Log.d("mytag2",""+it.contests)
-
-                    }
-                }
-
-                is Resource.Error->{
-                    hideProgressbar()
-                    response.message?.let {
-                        Toast.makeText(activity,"An error occured : $it",Toast.LENGTH_LONG).show()
-                    }
-
-                }
-                is Resource.Loading->{
-                    showProgressbar()
-
-                }
+        val responseLiveData = viewmodel.getContest(resource,currentDateTimeMin,currentDateTime)
+        responseLiveData.observe(this.viewLifecycleOwner, Observer {
+            if(it!=null){
+                contestAdapter.setList(it)
+                contestAdapter.notifyDataSetChanged()
+                hideProgressbar()
+            }
+            else{
+             hideProgressbar()
+                Toast.makeText(context,"codechef No data available", Toast.LENGTH_LONG).show()
             }
         })
+
     }
 
     private fun initRecyclerView() {

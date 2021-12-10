@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context="com.example.coderadar.ui.ContestActivity">
 
+
     <fragment
         android:id="@+id/fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"

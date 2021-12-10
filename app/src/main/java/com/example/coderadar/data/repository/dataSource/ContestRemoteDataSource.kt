@@ -5,5 +5,5 @@ import retrofit2.Response
 import java.time.LocalDateTime
 
 interface ContestRemoteDataSource {
-    suspend fun getPresentContest(resource:String,start_dt: LocalDateTime,end_dt:LocalDateTime):Response<APIResponse>
+    suspend fun getPresentContest(start_dt: LocalDateTime,end_dt:LocalDateTime):Response<APIResponse>
 }

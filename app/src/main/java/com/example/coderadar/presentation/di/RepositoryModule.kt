@@ -1,6 +1,8 @@
 package com.example.coderadar.presentation.di
 
 import com.example.coderadar.data.repository.ContestRepositoryImpl
+import com.example.coderadar.data.repository.dataSource.ContestCacheDataSource
+import com.example.coderadar.data.repository.dataSource.ContestLocalDataSource
 import com.example.coderadar.data.repository.dataSource.ContestRemoteDataSource
 import com.example.coderadar.domain.repository.ContestRepository
 import dagger.Module
@@ -15,7 +17,9 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideContestRepository(contestRemoteDataSource: ContestRemoteDataSource): ContestRepository {
-        return ContestRepositoryImpl(contestRemoteDataSource)
+    fun provideContestRepository(contestRemoteDataSource: ContestRemoteDataSource,
+                                 contestLocalDataSource: ContestLocalDataSource,
+                                 contestCacheDataSource: ContestCacheDataSource): ContestRepository {
+        return ContestRepositoryImpl(contestRemoteDataSource,contestLocalDataSource,contestCacheDataSource)
     }
 }

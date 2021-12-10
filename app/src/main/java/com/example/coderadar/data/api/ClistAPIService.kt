@@ -13,7 +13,6 @@ interface ClistAPIService {
     suspend fun getContestPresent(
         @Query("username") username:String = BuildConfig.USERNAME,
         @Query("api_key") api_key:String = BuildConfig.API_KEY,
-        @Query("resource")resource:String,
         @Query("start__gt") start_dt: LocalDateTime,
         @Query("end__gt")end_dt:LocalDateTime,
         @Query("order_by") order_by:String = "start",

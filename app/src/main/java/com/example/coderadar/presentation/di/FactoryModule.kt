@@ -2,6 +2,7 @@ package com.example.coderadar.presentation.di
 
 import android.app.Application
 import com.example.coderadar.domain.usecase.GetContestUseCase
+import com.example.coderadar.domain.usecase.UpdateContestUseCase
 import com.example.coderadar.presentation.viewmodel.ContestsViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -17,8 +18,9 @@ class FactoryModule {
     @Provides
     fun provideViewModelFactory
                 (application: Application,
-                 getContestUseCase: GetContestUseCase
+                 getContestUseCase: GetContestUseCase,
+                 updateContestUseCase: UpdateContestUseCase
     ): ContestsViewModelFactory {
-        return ContestsViewModelFactory(application,getContestUseCase)
+        return ContestsViewModelFactory(application,getContestUseCase,updateContestUseCase)
     }
 }

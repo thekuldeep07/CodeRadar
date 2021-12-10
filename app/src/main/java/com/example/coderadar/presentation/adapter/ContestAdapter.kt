@@ -14,21 +14,15 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ContestAdapter: RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
+    private val contestList = ArrayList<Contest>()
 
-
-    private val callback = object : DiffUtil.ItemCallback<Contest>() {
-        override fun areItemsTheSame(oldItem: Contest, newItem: Contest): Boolean {
-            return  oldItem.event == newItem.event
-        }
-
-        override fun areContentsTheSame(oldItem: Contest, newItem: Contest): Boolean {
-            return  oldItem == newItem
-        }
-
+    fun setList(contests:List<Contest>){
+        contestList.clear()
+        contestList.addAll(contests)
     }
 
 
-    val  differ = AsyncListDiffer(this, callback)
+
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): contestViewHolder {
         val  binding = ContestListItemBinding.inflate(
@@ -40,13 +34,11 @@ class ContestAdapter: RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: contestViewHolder, position: Int) {
-        val contest=differ.currentList[position]
-        Log.d("kul", "" + contest.href)
-        holder.bind(contest)
+        holder.bind(contestList[position])
     }
 
     override fun getItemCount(): Int {
-        return differ.currentList.size
+        return contestList.size
     }
 
     inner class  contestViewHolder(val binding: ContestListItemBinding)

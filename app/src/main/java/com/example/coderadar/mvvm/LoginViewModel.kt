@@ -14,12 +14,12 @@ import kotlinx.coroutines.launch
 class LoginViewModel(application: Application): AndroidViewModel(application) {
     val repository : LoginRepo
     var firebaseUserData : MutableLiveData<FirebaseUser?>
-    val userStatus : MutableLiveData<Boolean>
+    val userLogOutStatus : MutableLiveData<Boolean>
     val isAuthenticated : MutableLiveData<Boolean>
     init {
         repository = LoginRepo(application)
         firebaseUserData = repository.firebaseUserData
-        userStatus = repository.userLogoutStatus
+        userLogOutStatus = repository.userLogoutStatus
         isAuthenticated = repository.isAuthenticated
     }
 
@@ -35,7 +35,7 @@ class LoginViewModel(application: Application): AndroidViewModel(application) {
         repository.signInWithGoogle(idToken)
     }
 
-    fun signOut() = viewModelScope.launch {
+    fun signOut() {
         repository.signOut()
     }
 

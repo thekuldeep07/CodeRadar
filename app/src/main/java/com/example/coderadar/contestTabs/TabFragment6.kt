@@ -63,7 +63,7 @@ class TabFragment6 : Fragment() {
     }
 
     private fun initRecyclerView() {
-        contestAdapter = ContestAdapter()
+        contestAdapter = ContestAdapter(requireActivity())
         tab6Binding.contestRv6.apply{
             adapter = contestAdapter
             layoutManager = LinearLayoutManager(activity)

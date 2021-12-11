@@ -19,8 +19,10 @@ class LoginRepo(val application: Application) {
         val user = mAuth.currentUser
         if (user != null){
             isAuthenticated.postValue(true)
+            userLogoutStatus.postValue(false)
         } else {
             isAuthenticated.postValue(false)
+            userLogoutStatus.postValue(true)
         }
     }
 
@@ -44,12 +46,16 @@ class LoginRepo(val application: Application) {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener {
                 if(it.isSuccessful) {
+                    if (it.result.additionalUserInfo?.isNewUser!!){
+                        mAuth.currentUser!!.displayName?.let { it1 -> mAuth.currentUser!!.email?.let { it2 ->
+                            addingDataToFirestore(it1,
+                                it2
+                            )
+                        } }
+                    }
+                    userLogoutStatus.postValue(false)
                     firebaseUserData.postValue(mAuth.currentUser)
-                    mAuth.currentUser!!.displayName?.let { it1 -> mAuth.currentUser!!.email?.let { it2 ->
-                        addingDataToFirestore(it1,
-                            it2
-                        )
-                    } }
+
                 }
             }
             .addOnFailureListener {

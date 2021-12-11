@@ -1,6 +1,9 @@
 package com.example.coderadar.presentation.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,11 +12,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.CodeRadar.databinding.ContestListItemBinding
 import com.example.coderadar.data.model.Contest
+import com.example.coderadar.ui.ContestActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ContestAdapter: RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
+class ContestAdapter(private val context: Context): RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
     private val contestList = ArrayList<Contest>()
 
     fun setList(contests:List<Contest>){
@@ -80,6 +84,15 @@ class ContestAdapter: RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
                     }
 
 
+                }
+
+                binding.linkBtn.setOnClickListener {
+                    val url = contest.href
+                    val intent = Intent()
+                    intent.setPackage("com.android.chrome")
+                    intent.action = Intent.ACTION_VIEW
+                    intent.setData(Uri.parse(url))
+                    context.startActivity(intent)
                 }
             }
     }

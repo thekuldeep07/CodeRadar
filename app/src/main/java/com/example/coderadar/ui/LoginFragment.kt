@@ -122,8 +122,9 @@ class LoginFragment : Fragment() {
             .requestIdToken("911082203780-11mcu4t8i6v85r6vdfa8h4shvgci8tcb.apps.googleusercontent.com")
             .requestEmail()
             .build()
-        val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
+        val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+        googleSignInClient.signOut()
         val intent = googleSignInClient.signInIntent
         resultLauncher.launch(intent)
     }

@@ -1,10 +1,12 @@
 package com.example.coderadar.ui
 
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.FragmentContestBinding
 import com.example.coderadar.contestTabs.*
 import com.example.coderadar.presentation.adapter.TabsAdapter
@@ -15,14 +17,14 @@ class ContestFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         fragmentContestBinding = FragmentContestBinding.inflate(inflater, container, false)
+
         mainFunction()
         return fragmentContestBinding.root
     }
 
     private fun mainFunction() {
-
         fragmentContestBinding.tabs.setupWithViewPager(fragmentContestBinding.viewPager)
 
         val tabAdapter = TabsAdapter(activity?.supportFragmentManager!!)
@@ -34,5 +36,6 @@ class ContestFragment : Fragment() {
         tabAdapter.addFragment(TabFragment6(), "Google")
         fragmentContestBinding.viewPager.adapter = tabAdapter
     }
+
 
 }

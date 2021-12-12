@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat.getSystemService
 
 class NotificationSenderBackground: Service() {
     var href: String? = null
+    var notificationtitle: String? = null
     var remainingTime: Long? = null
     var pendingIntent: PendingIntent? = null
     override fun onBind(p0: Intent?): IBinder? {
@@ -18,16 +19,18 @@ class NotificationSenderBackground: Service() {
 
     override fun onCreate() {
         super.onCreate()
-        createNotificationChannel(applicationContext, NotificationCompat.PRIORITY_MAX, true, "CodeRadar", "Something for checking.")
+        createNotificationChannel(applicationContext, NotificationManager.IMPORTANCE_HIGH, true, "CodeRadar", "Something for checking.")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null && (intent.hasExtra("hrefurl"))){
             href = intent.getStringExtra("hrefurl")
             remainingTime = intent.getLongExtra("remaining", 0)
+            notificationtitle = intent.getStringExtra("notificationtitle")
         }
         val intent = Intent(applicationContext, AlarmReceiver::class.java)
         intent.putExtra("Url", href)
+        intent.putExtra("notificationtitle", notificationtitle)
         pendingIntent = PendingIntent.getBroadcast(
             applicationContext, 234, intent, 0
         )
@@ -48,7 +51,6 @@ class NotificationSenderBackground: Service() {
             val channelId = "codeRadar"
             val channel = NotificationChannel(channelId, name, importance)
             channel.description = description
-            channel.setShowBadge(showBadge)
 
             // 3
             val notificationManager = context.getSystemService(NotificationManager::class.java)

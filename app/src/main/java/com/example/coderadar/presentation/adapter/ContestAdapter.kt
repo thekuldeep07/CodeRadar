@@ -118,6 +118,7 @@ class ContestAdapter(private val context: Context): RecyclerView.Adapter<Contest
                     Toast.makeText(context, "Alarm is set successfully", Toast.LENGTH_LONG).show()
                     val backgroundIntent = Intent(context, NotificationSenderBackground::class.java)
                     backgroundIntent.putExtra("hrefurl", contest.href)
+                    backgroundIntent.putExtra("notificationtitle", contest.event)
                     backgroundIntent.putExtra("remaining", remainingTime)
                     context?.startService(backgroundIntent)
 

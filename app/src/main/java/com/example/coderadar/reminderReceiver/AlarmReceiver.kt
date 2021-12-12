@@ -10,8 +10,12 @@ import androidx.core.app.NotificationCompat
 import android.app.PendingIntent
 import android.net.Uri
 import android.widget.Toast
+import androidx.navigation.NavDeepLinkBuilder
+import androidx.navigation.navDeepLink
 import com.example.CodeRadar.R
+import com.example.CodeRadar.databinding.FragmentSavedBinding
 import com.example.coderadar.ui.ContestActivity
+import com.example.coderadar.ui.savedFragment
 
 
 class AlarmReceiver: BroadcastReceiver() {
@@ -20,27 +24,27 @@ class AlarmReceiver: BroadcastReceiver() {
         context?.startService(Intent(context, BackgroundSoundService::class.java))
 
         val hrefUrl = p1?.getStringExtra("Url")
+        val notificationtitle = p1?.getStringExtra("notificationtitle")
 
         if (context != null) {
             builder = NotificationCompat.Builder(context, "codeRadar")
-
+                .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setWhen(System.currentTimeMillis())
-                .setContentTitle("Notifications Example")
-                .setContentText("This is a test notification")
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setContentTitle(notificationtitle)
+                .setChannelId("codeRadar")
+                .setContentText("Tap to join the contest.")
+                .setPriority(NotificationManager.IMPORTANCE_HIGH)
+                .setCategory(Notification.CATEGORY_CALL)
                 .setAutoCancel(true)
         }
 
-        val notificationIntent = Intent()
-        notificationIntent.setPackage("com.android.chrome")
-        notificationIntent.action = Intent.ACTION_VIEW
-        notificationIntent.setData(Uri.parse(hrefUrl))
-        val contentIntent = PendingIntent.getActivity(
-            context, 0, notificationIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        builder.setContentIntent(contentIntent)
+        val notificationIntent = NavDeepLinkBuilder(context!!)
+            .setComponentName(ContestActivity::class.java)
+            .setGraph(R.navigation.nav_graph)
+            .setDestination(R.id.savedFragment)
+            .createPendingIntent()
+        builder.setContentIntent(notificationIntent)
 
         // Add as notification
 

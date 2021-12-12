@@ -17,6 +17,7 @@ import com.example.CodeRadar.databinding.ActivityContestBinding
 import com.example.coderadar.MainActivity
 import com.example.coderadar.mvvm.LoginViewModel
 import com.example.coderadar.reminderReceiver.BackgroundSoundService
+import com.example.coderadar.reminderReceiver.NotificationSenderBackground
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -83,6 +84,7 @@ class ContestActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         stopService(Intent(this, BackgroundSoundService::class.java))
+        stopService(Intent(this, NotificationSenderBackground::class.java))
     }
 
 }

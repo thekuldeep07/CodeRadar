@@ -7,16 +7,16 @@ import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.ContestListItemBinding
 import com.example.coderadar.data.model.Contest
-import com.example.coderadar.ui.ContestActivity
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
+import java.util.*
+import kotlin.collections.ArrayList
+import com.example.coderadar.reminderReceiver.NotificationSenderBackground
+
 
 class ContestAdapter(private val context: Context): RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
     private val contestList = ArrayList<Contest>()
@@ -108,7 +108,24 @@ class ContestAdapter(private val context: Context): RecyclerView.Adapter<Contest
                     intent.setData(Uri.parse(url))
                     context.startActivity(intent)
                 }
+
+                binding.reminderBtn.setOnClickListener {
+                    val time : LocalDateTime = LocalDateTime.parse(contest.start)
+                    val calendar = Calendar.getInstance()
+                    calendar.clear()
+                    calendar.set(time.year, time.monthValue - 1, time.dayOfMonth, time.hour, time.minute, time.second)
+                    val remainingTime = calendar.timeInMillis
+                    Toast.makeText(context, "Alarm is set successfully", Toast.LENGTH_LONG).show()
+                    val backgroundIntent = Intent(context, NotificationSenderBackground::class.java)
+                    backgroundIntent.putExtra("hrefurl", contest.href)
+                    backgroundIntent.putExtra("remaining", remainingTime)
+                    context?.startService(backgroundIntent)
+
+                }
+
+
             }
+
     }
 
 }

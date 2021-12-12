@@ -1,6 +1,7 @@
 package com.example.coderadar.ui
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,18 +16,9 @@ import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.ActivityContestBinding
 import com.example.coderadar.MainActivity
 import com.example.coderadar.mvvm.LoginViewModel
+import com.example.coderadar.reminderReceiver.BackgroundSoundService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import android.app.Notification
-import android.app.NotificationManager
-import androidx.core.app.NotificationCompat
-
-import android.app.NotificationChannel
-
-import android.annotation.SuppressLint
-import android.graphics.Color
-
-import android.os.Build
 
 
 
@@ -67,22 +59,12 @@ class ContestActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.About){
-//            startActivity(Intent(this, AboutActivity::class.java))
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            val NOTIFICATION_CHANNEL_ID = "tutorialspoint_01"
-            val notificationBuilder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-            notificationBuilder.setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setWhen(2000)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("sample notification")
-                .setContentText("This is sample notification")
-                .setContentInfo("Information")
-            notificationManager.notify(1, notificationBuilder.build())
 
+            startActivity(Intent(this, AboutActivity::class.java))
             return true
+
         } else if (item.itemId == R.id.logOut){
+
             loginViewModel.signOut()
             loginViewModel.userLogOutStatus.observe(this, {
                 it?.let {
@@ -93,7 +75,14 @@ class ContestActivity : AppCompatActivity() {
                 }
             })
             return true
+
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onStart() {
+        super.onStart()
+        stopService(Intent(this, BackgroundSoundService::class.java))
+    }
+
 }

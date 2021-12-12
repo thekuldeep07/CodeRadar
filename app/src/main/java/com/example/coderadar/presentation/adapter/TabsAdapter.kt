@@ -4,9 +4,9 @@ import android.content.Context
 import android.icu.text.CaseMap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 
-class TabsAdapter (fm: FragmentManager):FragmentPagerAdapter(fm) {
+class TabsAdapter (fm: FragmentManager):FragmentStatePagerAdapter(fm) {
     private val fragmentArray = ArrayList<Fragment>()
     private val stringArray = ArrayList<String>()
     override fun getCount(): Int {

@@ -16,7 +16,7 @@ import com.example.coderadar.mvvm.LoginViewModel
 import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.FragmentSignUpBinding
 
-class SignUpFragment : Fragment() {
+class   SignUpFragment : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var viewModel: LoginViewModel

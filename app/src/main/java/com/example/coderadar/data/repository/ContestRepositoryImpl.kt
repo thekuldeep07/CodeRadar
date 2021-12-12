@@ -32,14 +32,16 @@ class ContestRepositoryImpl(
     override suspend fun updateContests(resource: String,
                                         start_dt: LocalDateTime,
                                         end_dt:LocalDateTime): List<Contest>?{
+
         val newContestList : List<Contest>? = getContestFromAPI(start_dt,end_dt)
         localDataSource.clearAll()
 
         if (newContestList != null) {
             localDataSource.saveContestsToDB(newContestList)
-            cacheDataSource.saveContestsToCache(newContestList)
+//            cacheDataSource.saveContestsToCache(newContestList)
         }
-        return  newContestList
+        val newContestList1:List<Contest>? = getContestsFromDB(resource,start_dt,end_dt)
+        return  newContestList1
     }
 
     suspend fun  getContestFromAPI(

@@ -56,6 +56,7 @@ class ContestActivity : AppCompatActivity() {
 
         viewModel =ViewModelProvider(this,factory).get(ContestsViewModel::class.java)
 
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

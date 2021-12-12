@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -27,6 +28,7 @@ class TabFragment6 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_tab6, container, false)
     }
 
@@ -43,20 +45,30 @@ class TabFragment6 : Fragment() {
 
     private fun viewNewsList() {
         showProgressbar()
-        val currentDateTimeMin = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0)
+        val currentDateTimeMin = LocalDateTime.now().minusWeeks(2).withHour(0).withMinute(0).withSecond(0)
         val currentDateTime = LocalDateTime.now()
         Log.d("date",""+currentDateTime)
         val resource = "codingcompetitions.withgoogle.com"
         val responseLiveData = viewmodel.getContest(resource,currentDateTimeMin,currentDateTime)
         responseLiveData.observe(this.viewLifecycleOwner, Observer {
-            if(it!=null){
+            if (it != null) {
+                tab6Binding.errorLayout.visibility=View.GONE
                 contestAdapter.setList(it)
                 contestAdapter.notifyDataSetChanged()
+                if(it.isEmpty()){
+                    tab6Binding.noDataLayout.visibility=View.VISIBLE
+
+                }
+                else{
+                    tab6Binding.contestRv6.visibility=View.VISIBLE
+                }
+
+
                 hideProgressbar()
-            }
-            else{
+            } else {
                 hideProgressbar()
-                Toast.makeText(context,"No data availablenm nvmn", Toast.LENGTH_LONG).show()
+                tab6Binding.contestRv6.visibility=View.GONE
+                tab6Binding.errorLayout.visibility=View.VISIBLE
             }
         })
 
@@ -71,8 +83,51 @@ class TabFragment6 : Fragment() {
     }
     private fun showProgressbar(){
         tab6Binding.contestPb6.visibility = View.VISIBLE
+        tab6Binding.contestRv6.visibility = View.GONE
+        tab6Binding.errorLayout.visibility =View.GONE
+        tab6Binding.noDataLayout.visibility=View.GONE
     }
     private fun hideProgressbar(){
         tab6Binding.contestPb6.visibility = View.INVISIBLE
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        //get item id to handle item clicks
+        val id = item.itemId
+        //handle item clicks
+        if (id == R.id.refresh){
+            refresh()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun refresh() {
+        showProgressbar()
+        val currentDateTimeMin = LocalDateTime.now().minusWeeks(2).withHour(0).withMinute(0).withSecond(0)
+        val currentDateTime = LocalDateTime.now()
+        Log.d("date", "" + currentDateTime)
+        val resource ="codingcompetitions.withgoogle.com"
+        val responseLiveData = viewmodel.updateContest(resource, currentDateTimeMin, currentDateTime)
+        responseLiveData.observe(this.viewLifecycleOwner, Observer {
+            if (it != null) {
+                tab6Binding.errorLayout.visibility=View.GONE
+                contestAdapter.setList(it)
+                contestAdapter.notifyDataSetChanged()
+                if(it.isEmpty()){
+                    tab6Binding.noDataLayout.visibility=View.VISIBLE
+
+                }
+                else{
+                    tab6Binding.contestRv6.visibility=View.VISIBLE
+                }
+
+
+                hideProgressbar()
+            } else {
+                hideProgressbar()
+                tab6Binding.contestRv6.visibility=View.GONE
+                tab6Binding.errorLayout.visibility=View.VISIBLE
+            }
+        })
     }
 }

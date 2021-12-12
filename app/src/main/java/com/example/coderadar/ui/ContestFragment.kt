@@ -19,14 +19,12 @@ class ContestFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         fragmentContestBinding = FragmentContestBinding.inflate(inflater, container, false)
-
         mainFunction()
         return fragmentContestBinding.root
     }
 
     private fun mainFunction() {
         fragmentContestBinding.tabs.setupWithViewPager(fragmentContestBinding.viewPager)
-
         val tabAdapter = TabsAdapter(activity?.supportFragmentManager!!)
         tabAdapter.addFragment(TabFragment1(), "CodeChef")
         tabAdapter.addFragment(TabFragment2(), "LeetCode")

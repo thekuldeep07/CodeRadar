@@ -15,7 +15,7 @@ interface ContestDao {
     @Query("DELETE FROM contests_table")
     suspend fun  deleteAllContests()
 
-    @Query("SELECT * FROM contests_table WHERE resource = :resourceName")
+    @Query("SELECT * FROM contests_table WHERE resource = :resourceName ORDER BY start ASC")
     suspend fun getContests(resourceName:String):List<Contest>
 
 }

@@ -33,6 +33,7 @@
 
     <style name="customThemeForloginpage" parent="Theme.MaterialComponents.Light.NoActionBar">
 
+        <item name="textInputStyle">@style/Widget.MyApp.TextInputLayout</item>
         <item name="android:forceDarkAllowed">false</item>
 
     </style>

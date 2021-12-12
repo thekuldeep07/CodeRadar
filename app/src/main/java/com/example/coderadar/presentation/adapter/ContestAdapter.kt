@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.ContestListItemBinding
 import com.example.coderadar.data.model.Contest
 import com.example.coderadar.ui.ContestActivity
@@ -85,6 +86,19 @@ class ContestAdapter(private val context: Context): RecyclerView.Adapter<Contest
 
 
                 }
+
+                when (contest.resource) {
+                    "codeforces.com" -> binding.sourceIcon.setImageResource(R.drawable.ic_code_forces)
+                    "leetcode.com"->binding.sourceIcon.setImageResource(R.drawable.ic_leetcode)
+                    "hackerrank.com"->binding.sourceIcon.setImageResource(R.drawable.ic_hackerrank)
+                    "codingcompetitions.withgoogle.com"->binding.sourceIcon.setImageResource(R.drawable.google_logo)
+                    "codechef.com"-> binding.sourceIcon.setImageResource(R.drawable.ic_codechef)
+                    "hackerearth.com"->binding.sourceIcon.setImageResource(R.drawable.ic_hackerearth)
+                }
+
+
+
+//                binding.sourceIcon.setImageResource(R.id.)
 
                 binding.linkBtn.setOnClickListener {
                     val url = contest.href

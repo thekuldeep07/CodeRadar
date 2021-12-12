@@ -67,7 +67,9 @@
     <ProgressBar
         android:id="@+id/contest_pb3"
         android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:indeterminateTint="@color/buttonbackcolor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

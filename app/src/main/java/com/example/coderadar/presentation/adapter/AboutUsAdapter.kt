@@ -44,24 +44,18 @@ class AboutUsAdapter(private val context: Context, private val developerList: Li
 
             binding.linkedInImage.setOnClickListener {
                     val url = developer.linkedin
-                binding.linkedInImage.setOnClickListener { v ->
                     val linkedUri =
                         Uri.parse(url)
                     val intent = Intent(Intent.ACTION_VIEW, linkedUri)
                     context.startActivity(intent)
-                }
-
-
             }
 
 
             binding.githubImage.setOnClickListener {
                 val url = developer.github
-                binding.githubImage.setOnClickListener { v ->
-                    val githubUri =
-                        Uri.parse(url)
-                    val intent = Intent(Intent.ACTION_VIEW, githubUri)
-                    context.startActivity(intent)
+                val githubUri = Uri.parse(url)
+                val intent = Intent(Intent.ACTION_VIEW, githubUri)
+                context.startActivity(intent)
                 }
 
 
@@ -72,4 +66,3 @@ class AboutUsAdapter(private val context: Context, private val developerList: Li
 
     }
 
-}

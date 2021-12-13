@@ -29,4 +29,6 @@
     <string name="hello_info_fragment">Hello info fragment</string>
     <string name="tester">Tester</string>
     <string name="developer">Developer</string>
+    <string name="contribute_message">Dear Users, Let\'s work in this app together.</string>
+    <string name="contribute_text">I want to Contribute.</string>
 </resources>

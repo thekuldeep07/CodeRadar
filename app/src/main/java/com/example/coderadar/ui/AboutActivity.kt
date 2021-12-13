@@ -1,24 +1,30 @@
 package com.example.coderadar.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.AboutusItemBinding
+import com.example.CodeRadar.databinding.ActivityAboutBinding
 import com.example.CodeRadar.databinding.ActivityContestBinding
 import com.example.coderadar.data.model.Developer
 import com.example.coderadar.presentation.adapter.AboutUsAdapter
 
 class AboutActivity : AppCompatActivity() {
-    private  lateinit var binding: AboutusItemBinding
+
+    private  lateinit var binding: ActivityAboutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= AboutusItemBinding.inflate(layoutInflater)
+        binding= ActivityAboutBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_about)
 
         val recyclerview = findViewById<RecyclerView>(R.id.aboutUs_rv)
-        recyclerview.layoutManager = LinearLayoutManager(this)
+        val contribute = findViewById<TextView>(R.id.contribute)
+        recyclerview.layoutManager= LinearLayoutManager(this)
 
         val data = ArrayList<Developer>()
 
@@ -47,6 +53,14 @@ class AboutActivity : AppCompatActivity() {
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
+
+        contribute.setOnClickListener{
+            val url = "https://github.com/thekuldeep07/CodeRadar"
+            val githubUri = Uri.parse(url)
+            val intent = Intent(Intent.ACTION_VIEW, githubUri)
+            this.startActivity(intent)
+
+        }
 
 
     }

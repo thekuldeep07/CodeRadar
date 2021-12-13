@@ -27,4 +27,6 @@
     <string name="thirdonboardtext">SET A REMINDER TO NEVER MISS A CONTEST AGAIN</string>
     <string name="hello_saved_fragment">Hello saved fragment</string>
     <string name="hello_info_fragment">Hello info fragment</string>
+    <string name="tester">Tester</string>
+    <string name="developer">Developer</string>
 </resources>

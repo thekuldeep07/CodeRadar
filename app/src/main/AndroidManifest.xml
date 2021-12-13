@@ -19,7 +19,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name="com.example.coderadar.ui.AboutActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/customTheme"/>
         <activity
             android:name="com.example.coderadar.ui.ContestActivity"
             android:exported="false"

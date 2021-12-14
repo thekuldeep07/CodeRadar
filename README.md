@@ -1,11 +1,11 @@
 # Code RADAR
-Code radar is a contest tracking  Android application.
-
-- Create a firebase project and replace the google-services.json file which you get from your firebase project console
-- Following firebase services need to be enabled in the firebase console
-  - Phone Auth
-  - Cloud Firestore
-  - Also set reuirements for Facebook authnetication by using Facebook Developers account
+The application is aimed at developing an app for coding enthusiasts who do not 
+want to miss the online hackathons and coding programs going on online on popular 
+websites in a conformable procedure. “CODE RADAR” Is An App That Let's You 
+Keep Track Of All The Coding Competition Happening On Some Of The Biggest 
+Coding Platforms. The App Keeps You Updated With All The Ongoing And 
+Upcoming Coding competitions With The Ability To Add Reminders, So That You 
+Don't Miss What Matters. 
 
 <p float="center">
   <img src="demo_vedio.gif" />

@@ -105,6 +105,9 @@ class LoginFragment : Fragment() {
                     } catch (e: ApiException) {
                         Log.e("Api Exception", "${e}")
                     }
+                } else {
+                    binding.progressBar.visibility = View.GONE
+                    binding.mainConstrainLayout.alpha = 1f
                 }
             }
 

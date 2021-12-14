@@ -43,6 +43,7 @@
         <receiver android:name="com.example.coderadar.reminderReceiver.AlarmReceiver"/>
         <service android:name="com.example.coderadar.reminderReceiver.BackgroundSoundService"/>
         <service android:name="com.example.coderadar.reminderReceiver.NotificationSenderBackground"/>
+        <service android:name="com.example.coderadar.reminderReceiver.stopingSoundService"/>
     </application>
 
 </manifest>

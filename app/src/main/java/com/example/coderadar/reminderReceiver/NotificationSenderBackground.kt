@@ -25,7 +25,8 @@ class NotificationSenderBackground: Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null && (intent.hasExtra("hrefurl"))){
             href = intent.getStringExtra("hrefurl")
-            remainingTime = intent.getLongExtra("remaining", 0)
+//            remainingTime = intent.getLongExtra("remaining", 0)
+            remainingTime = 5000
             notificationtitle = intent.getStringExtra("notificationtitle")
         }
         val intent = Intent(applicationContext, AlarmReceiver::class.java)

@@ -39,12 +39,11 @@ class AlarmReceiver: BroadcastReceiver() {
                 .setAutoCancel(true)
         }
 
-        val notificationIntent = NavDeepLinkBuilder(context!!)
-            .setComponentName(ContestActivity::class.java)
-            .setGraph(R.navigation.nav_graph)
-            .setDestination(R.id.savedFragment)
-            .createPendingIntent()
-        builder.setContentIntent(notificationIntent)
+        val intent = Intent(context, stopingSoundService::class.java)
+        intent.putExtra("url", hrefUrl)
+
+        val notificationpendingIntent = PendingIntent.getService(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        builder.setContentIntent(notificationpendingIntent)
 
         // Add as notification
 
@@ -52,6 +51,7 @@ class AlarmReceiver: BroadcastReceiver() {
         val manager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
         manager!!.notify(0, builder.build())
 
+//        context?.stopService(Intent(context, BackgroundSoundService::class.java))
     }
 
 

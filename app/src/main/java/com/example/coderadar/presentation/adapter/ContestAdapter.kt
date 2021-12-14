@@ -110,17 +110,22 @@ class ContestAdapter(private val context: Context): RecyclerView.Adapter<Contest
                 }
 
                 binding.reminderBtn.setOnClickListener {
-                    val time : LocalDateTime = LocalDateTime.parse(contest.start)
-                    val calendar = Calendar.getInstance()
-                    calendar.clear()
-                    calendar.set(time.year, time.monthValue - 1, time.dayOfMonth, time.hour, time.minute, time.second)
-                    val remainingTime = calendar.timeInMillis
-                    Toast.makeText(context, "Alarm is set successfully", Toast.LENGTH_LONG).show()
-                    val backgroundIntent = Intent(context, NotificationSenderBackground::class.java)
-                    backgroundIntent.putExtra("hrefurl", contest.href)
-                    backgroundIntent.putExtra("notificationtitle", contest.event)
-                    backgroundIntent.putExtra("remaining", remainingTime)
-                    context?.startService(backgroundIntent)
+                    if (currentDate.isBefore(startDate)){
+                        val time : LocalDateTime = LocalDateTime.parse(contest.start)
+                        val calendar = Calendar.getInstance()
+                        calendar.clear()
+                        calendar.set(time.year, time.monthValue - 1, time.dayOfMonth, time.hour, time.minute, time.second)
+                        val remainingTime = calendar.timeInMillis
+                        Toast.makeText(context, "Alarm is set successfully", Toast.LENGTH_LONG).show()
+                        val backgroundIntent = Intent(context, NotificationSenderBackground::class.java)
+                        backgroundIntent.putExtra("hrefurl", contest.href)
+                        backgroundIntent.putExtra("notificationtitle", contest.event)
+                        backgroundIntent.putExtra("remaining", remainingTime)
+                        context?.startService(backgroundIntent)
+
+                    } else {
+                        Toast.makeText(context, "This contest is Live now, You can not set reminder.", Toast.LENGTH_LONG).show()
+                    }
 
                 }
 

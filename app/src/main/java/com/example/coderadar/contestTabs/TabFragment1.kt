@@ -6,9 +6,11 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.FragmentTab1Binding
+import com.example.coderadar.mvvm.LoginViewModel
 import com.example.coderadar.presentation.adapter.ContestAdapter
 import com.example.coderadar.presentation.viewmodel.ContestsViewModel
 import com.example.coderadar.ui.ContestActivity
@@ -17,6 +19,7 @@ import java.time.LocalDateTime
 
 class TabFragment1 : Fragment() {
     private lateinit var viewmodel: ContestsViewModel
+    private lateinit var loginViewModel: LoginViewModel
     private lateinit var  tab1Binding: FragmentTab1Binding
     private lateinit var contestAdapter: ContestAdapter
     override fun onCreateView(
@@ -33,6 +36,10 @@ class TabFragment1 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         tab1Binding = FragmentTab1Binding.bind(view)
         viewmodel = (activity as ContestActivity).viewModel
+
+        loginViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))
+            .get(LoginViewModel::class.java)
+
         initRecyclerView()
         viewNewsList()
 

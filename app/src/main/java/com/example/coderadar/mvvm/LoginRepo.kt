@@ -3,6 +3,7 @@ package com.example.coderadar.mvvm
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.example.coderadar.data.model.Contest
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -14,6 +15,9 @@ class LoginRepo(val application: Application) {
     val firebaseUserData = MutableLiveData<FirebaseUser?>()
     val isAuthenticated = MutableLiveData<Boolean>()
     val userLogoutStatus = MutableLiveData<Boolean>()
+    val contestSavedStatus = MutableLiveData<Boolean>()
+    val passwordStatus = MutableLiveData<Boolean>()
+    private var temp = 0
 
     fun isAuthenticated(){
         val user = mAuth.currentUser
@@ -59,8 +63,7 @@ class LoginRepo(val application: Application) {
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(application, "Something Went Wrong", Toast.LENGTH_LONG)
-                    .show()
+                firebaseUserData.postValue(null)
             }
     }
 
@@ -106,6 +109,60 @@ class LoginRepo(val application: Application) {
         val firebaseUser = db.collection("Users").document(user.uid).get()
         Toast.makeText(application, "${firebaseUser.result!!["Email"]} and ${firebaseUser.result!!["Name"]}",
             Toast.LENGTH_LONG).show()
+    }
+
+    fun addingContestToFirestore(contest: Contest){
+        temp++
+        val email = mAuth.currentUser?.email
+        val data = HashMap<String, String>()
+
+        db.collection("Contests")
+            .get()
+            .addOnCompleteListener {
+                if (it.isSuccessful){
+                    if(!it.result.isEmpty){
+                        val size = it.result.documents.size
+                        for (i in 1..size){
+                            data["contest${i}"] = it.result.documents[i].toString()
+                        }
+                        data["contest${size}"] = contest.event!!
+                        db.collection("Contests")
+                            .document(email!!)
+                            .set(data)
+                            .addOnCompleteListener {
+                                contestSavedStatus.postValue(true)
+                            }.addOnFailureListener {
+                                contestSavedStatus.postValue(false)
+                            }
+                    } else {
+                        data["contest1"] = contest.event!!
+                        db.collection("Contests")
+                            .document(email!!)
+                            .set(data)
+                            .addOnCompleteListener {
+                                contestSavedStatus.postValue(true)
+                            }.addOnFailureListener {
+                                contestSavedStatus.postValue(false)
+                            }
+                    }
+                }
+            }
+
+
+    }
+
+    fun resetPassword(Email: String) {
+        mAuth.sendPasswordResetEmail(Email)
+            .addOnCompleteListener {
+                it?.let {
+                    if (it.isSuccessful) {
+                        passwordStatus.postValue(true)
+                    }
+                }
+            }
+            .addOnFailureListener {
+                passwordStatus.postValue(false)
+            }
     }
 
 }

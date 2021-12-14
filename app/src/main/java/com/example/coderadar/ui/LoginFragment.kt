@@ -23,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import java.time.LocalDateTime
 
 class LoginFragment : Fragment() {
 
@@ -133,9 +134,10 @@ class LoginFragment : Fragment() {
     }
 
     fun signInWithGoogle(idToken: String) {
+        val timeforchecking1 = LocalDateTime.now().second
         viewModel.loginWithGoogleAccount(idToken)
-        Log.d("TAG", "you click on google sign in")
         viewModel.firebaseUserData.observe(this.requireActivity(), {
+            val timeforchecking2 = LocalDateTime.now().second
             if (it != null) {
                 binding.progressBar.visibility = View.GONE
                 binding.mainConstrainLayout.alpha = 1f
@@ -143,6 +145,14 @@ class LoginFragment : Fragment() {
                 binding.editText2.setText("")
                 activity?.startActivity(Intent(activity, ContestActivity::class.java))
                 activity?.finish()
+            } else {
+                val checkingTime = timeforchecking2 - timeforchecking1
+                if (checkingTime >= 10 ){
+                    Toast.makeText(context, "Something went wrong!", Toast.LENGTH_LONG).show()
+                    binding.progressBar.visibility = View.GONE
+                    binding.mainConstrainLayout.alpha = 1f
+                }
+
             }
         })
     }

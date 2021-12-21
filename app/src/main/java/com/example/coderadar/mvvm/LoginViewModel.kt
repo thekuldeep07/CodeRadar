@@ -16,7 +16,7 @@ class LoginViewModel(application: Application): AndroidViewModel(application) {
     val repository : LoginRepo
     var firebaseUserData : MutableLiveData<FirebaseUser?>
     val userLogOutStatus : MutableLiveData<Boolean>
-    val contestSavedStatus : MutableLiveData<Boolean>
+    val contestSavedStatus : MutableLiveData<Boolean?>
     val isAuthenticated : MutableLiveData<Boolean>
     val passStatus : MutableLiveData<Boolean>
     init {
@@ -43,17 +43,8 @@ class LoginViewModel(application: Application): AndroidViewModel(application) {
     fun signOut() {
         repository.signOut()
     }
-
-    fun addingDataToFirebase(name:String, email:String) {
-        repository.addingDataToFirestore(name, email)
-    }
-
     fun isAuthenticated() {
         repository.isAuthenticated()
-    }
-
-    fun showDetails() {
-        repository.showDetails()
     }
 
     fun removefirebaseUserData() {
@@ -61,7 +52,7 @@ class LoginViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun addContestintofirebase(contest: Contest) {
-        repository.addingContestToFirestore(contest)
+        repository.addingcontestfunction(contest)
     }
 
     fun resetPassword(email: String) {

@@ -1,9 +1,9 @@
 package com.example.coderadar.ui
 
 import android.content.Intent
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -16,8 +16,7 @@ import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.ActivityContestBinding
 import com.example.coderadar.MainActivity
 import com.example.coderadar.mvvm.LoginViewModel
-import com.example.coderadar.reminderReceiver.BackgroundSoundService
-import com.example.coderadar.reminderReceiver.NotificationSenderBackground
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -80,11 +79,4 @@ class ContestActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    override fun onStart() {
-        super.onStart()
-        stopService(Intent(this, BackgroundSoundService::class.java))
-        stopService(Intent(this, NotificationSenderBackground::class.java))
-    }
-
 }

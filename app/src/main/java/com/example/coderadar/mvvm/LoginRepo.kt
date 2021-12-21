@@ -1,6 +1,7 @@
 package com.example.coderadar.mvvm
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.coderadar.data.model.Contest
@@ -15,9 +16,8 @@ class LoginRepo(val application: Application) {
     val firebaseUserData = MutableLiveData<FirebaseUser?>()
     val isAuthenticated = MutableLiveData<Boolean>()
     val userLogoutStatus = MutableLiveData<Boolean>()
-    val contestSavedStatus = MutableLiveData<Boolean>()
+    val contestSavedStatus = MutableLiveData<Boolean?>()
     val passwordStatus = MutableLiveData<Boolean>()
-    private var temp = 0
 
     fun isAuthenticated(){
         val user = mAuth.currentUser
@@ -103,52 +103,37 @@ class LoginRepo(val application: Application) {
             }
     }
 
-    fun showDetails(){
-        val user = FirebaseAuth.getInstance().currentUser!!
-        val db = FirebaseFirestore.getInstance()
-        val firebaseUser = db.collection("Users").document(user.uid).get()
-        Toast.makeText(application, "${firebaseUser.result!!["Email"]} and ${firebaseUser.result!!["Name"]}",
-            Toast.LENGTH_LONG).show()
+    fun addingcontestfunction(contest: Contest){
+        contestSavedStatus.postValue(null)
+        val email = mAuth.currentUser?.email
+        var data = HashMap<String, String>()
+        data["Name"] = contest.event!!
+        data["Link"] = contest.href!!
+        data["Start Date"] = contest.start!!
+        if (checkingContest(contest.event, email!!)){
+            db.collection("Contests").document("$email").collection("${contest.id}").document(contest.event)
+                .set(data)
+                .addOnSuccessListener {
+                    contestSavedStatus.postValue(true)
+                }
+                .addOnFailureListener {
+                    contestSavedStatus.postValue(false)
+                }
+        } else {
+            Toast.makeText(application, "This contest is already exists.", Toast.LENGTH_LONG).show()
+        }
+
     }
 
-    fun addingContestToFirestore(contest: Contest){
-        temp++
-        val email = mAuth.currentUser?.email
-        val data = HashMap<String, String>()
-
-        db.collection("Contests")
+    private fun checkingContest(id: String, email: String): Boolean{
+        var returnVal = true
+        db.collection("Contests").document(email).collection(id)
             .get()
-            .addOnCompleteListener {
-                if (it.isSuccessful){
-                    if(!it.result.isEmpty){
-                        val size = it.result.documents.size
-                        for (i in 1..size){
-                            data["contest${i}"] = it.result.documents[i].toString()
-                        }
-                        data["contest${size}"] = contest.event!!
-                        db.collection("Contests")
-                            .document(email!!)
-                            .set(data)
-                            .addOnCompleteListener {
-                                contestSavedStatus.postValue(true)
-                            }.addOnFailureListener {
-                                contestSavedStatus.postValue(false)
-                            }
-                    } else {
-                        data["contest1"] = contest.event!!
-                        db.collection("Contests")
-                            .document(email!!)
-                            .set(data)
-                            .addOnCompleteListener {
-                                contestSavedStatus.postValue(true)
-                            }.addOnFailureListener {
-                                contestSavedStatus.postValue(false)
-                            }
-                    }
-                }
+            .addOnSuccessListener {
+                returnVal = it.isEmpty
             }
 
-
+        return returnVal
     }
 
     fun resetPassword(Email: String) {

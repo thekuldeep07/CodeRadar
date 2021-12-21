@@ -1,24 +1,26 @@
 package com.example.coderadar.presentation.adapter
 
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.example.CodeRadar.R
 import com.example.CodeRadar.databinding.ContestListItemBinding
 import com.example.coderadar.data.model.Contest
+import com.example.coderadar.mvvm.LoginViewModel
+import com.example.coderadar.reminderReceiver.AlarmReceiver
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
-import com.example.coderadar.reminderReceiver.NotificationSenderBackground
 
 
-class ContestAdapter(private val context: Context): RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
+class ContestAdapter(private val context: Context, private val loginViewModel: LoginViewModel, private val owner: LifecycleOwner): RecyclerView.Adapter<ContestAdapter.contestViewHolder>() {
     private val contestList = ArrayList<Contest>()
 
     fun setList(contests:List<Contest>){
@@ -116,21 +118,40 @@ class ContestAdapter(private val context: Context): RecyclerView.Adapter<Contest
                         calendar.clear()
                         calendar.set(time.year, time.monthValue - 1, time.dayOfMonth, time.hour, time.minute, time.second)
                         val remainingTime = calendar.timeInMillis
-                        Toast.makeText(context, "Alarm is set successfully", Toast.LENGTH_LONG).show()
-                        val backgroundIntent = Intent(context, NotificationSenderBackground::class.java)
-                        backgroundIntent.putExtra("hrefurl", contest.href)
-                        backgroundIntent.putExtra("notificationtitle", contest.event)
-                        backgroundIntent.putExtra("remaining", remainingTime)
-                        context?.startService(backgroundIntent)
+
+                        loginViewModel.addContestintofirebase(contest)
+                        loginViewModel.contestSavedStatus.observe(owner, {
+                            if (it == true) {
+                                Toast.makeText(context, "Alarm is set successfully", Toast.LENGTH_LONG).show()
+
+//                                val intent = Intent(context, AlarmReceiver::class.java)
+//                                intent.putExtra("notificationtitle", contest.event)
+//                                intent.putExtra("Url", contest.href)
+//                                val pendingIntent = PendingIntent.getBroadcast(
+//                                    context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT
+//                                )
+//
+//
+//                                val alarmManager = context.getSystemService(Service.ALARM_SERVICE) as AlarmManager
+//                                alarmManager.setExact(
+//                                    AlarmManager.RTC_WAKEUP, remainingTime + 5 * 60 * 1000,
+//                                    pendingIntent)
+                            } else {
+                                Toast.makeText(context, "An error occurred please try again later.", Toast.LENGTH_LONG).show()
+                            }
+                        })
+
+
 
                     } else {
-                        Toast.makeText(context, "This contest is Live now, You can not set reminder.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "This contest is Live now, You can not set reminder.", Toast.LENGTH_LONG).show()
                     }
 
                 }
 
 
             }
+
 
     }
 
